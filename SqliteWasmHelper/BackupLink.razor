@@ -20,7 +20,9 @@
         var factory = typeof(SqliteWasmDbContextFactory<>).MakeGenericType(DbContextType);
         var method = factory.GetMethod(nameof(SqliteWasmDbContextFactory<DbContext>.GetFilenameForType),
             System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
-        filename = (string)method!.Invoke(null, null)!;
+
+        filename = ((string)method!.Invoke(null, null)!);
+        //filename = ((string)method!.Invoke(null, null)!) + "_bak";
         await base.OnInitializedAsync();
     }
 

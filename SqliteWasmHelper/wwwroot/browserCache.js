@@ -64,9 +64,12 @@ export async function synchronizeDbWithCache(file) {
 
 export async function generateDownloadLink(parent, file) {
 
+    
     const backupPath = `${file}`;
-    const cachePath = `/data/cache/${file.substring(0, file.indexOf('_bak'))}`;
+    const cachePath = file.indexOf('_bak') > -1 ? `/data/cache/${file.substring(0, file.indexOf('_bak'))}` : `/data/cache/${file}`;
     const db = window.sqlitedb;
+
+    
     const resp = await db.cache.match(cachePath);
 
     if (resp && resp.ok) {
